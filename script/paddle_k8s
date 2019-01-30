@@ -35,14 +35,14 @@ start_fluid_process() {
   task_index=""
 
   if [ "${PADDLE_TRAINING_ROLE}" == "TRAINER" ] || [ "${PADDLE_TRAINING_ROLE}" == "PSERVER" ]; then
-    stdbuf -oL python /root/k8s_tools.py wait_pods_running ${pserver_label} ${PADDLE_PSERVERS}
+    stdbuf -oL python /root/k8s_tools.py wait_pods_running ${pserver_label} ${PADDLE_PSERVERS_NUM}
   fi
 
   if [ "${PADDLE_TRAINING_ROLE}" == "TRAINER" ] || [ "${PADDLE_TRAINING_ROLE}" == "WORKER" ]; then
-    stdbuf -oL python /root/k8s_tools.py wait_pods_running ${trainer_label} ${PADDLE_TRAINERS}
+    stdbuf -oL python /root/k8s_tools.py wait_pods_running ${trainer_label} ${PADDLE_TRAINERS_NUM}
   fi
 
-  export PADDLE_PSERVER_IPS=$(python /root/k8s_tools.py fetch_ips ${pserver_label} ${PADDLE_INIT_PORT})
+  export PADDLE_PSERVERS=$(python /root/k8s_tools.py fetch_ips ${pserver_label} ${PADDLE_INIT_PORT})
   export PADDLE_TRAINER_IPS=$(python /root/k8s_tools.py fetch_ips ${trainer_label})
 
   if [ "${PADDLE_TRAINING_ROLE}" == "TRAINER" ] || [ "${PADDLE_TRAINING_ROLE}" == "WORKER" ]; then

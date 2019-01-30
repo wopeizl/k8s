@@ -32,7 +32,7 @@ spec:
         - {name: PADDLE_TRAINERS_NUM, value: '1'}
         - {name: FLAGS_rpc_deadline, value: '36000000'}
         - {name: ENTRY, value: cd /workspace/ctr && python train.py --is_local 0 --cloud_train 1}
-        - {name: PADDLE_PSERVER_PORT, value: '30236'}
+        - {name: PADDLE_PORT, value: '30236'}
         - {name: LD_LIBRARY_PATH, value: '/usr/local/lib:/usr/local/nvidia/lib64:/usr/local/rdma/lib64:/usr/lib64/mlnx_ofed/valgrind'}
         - {name: PADDLE_TRAINING_ROLE, value: PSERVER}
         - {name: TRAINING_ROLE, value: PSERVER}
