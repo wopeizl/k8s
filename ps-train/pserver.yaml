@@ -28,8 +28,7 @@ spec:
             fieldRef: {fieldPath: status.podIP}
         - {name: PADDLE_JOB_NAME, value: fluid-ctr}
         - {name: PADDLE_IS_LOCAL, value: '0'}
-        - {name: PADDLE_TRAINERS, value: '1'}
-        - {name: PADDLE_TRAINERS_NUM, value: '1'}
+        - {name: PADDLE_TRAINERS_NUM, value: '2'}
         - {name: PADDLE_PSERVERS_NUM, value: '1'}
         - {name: FLAGS_rpc_deadline, value: '36000000'}
         - {name: ENTRY, value: cd /workspace/ctr && python train.py --is_local 0 --cloud_train 1}

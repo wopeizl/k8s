@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata: {name: fluid-ctr-trainer}
 spec:
-  completions: 1
-  parallelism: 1
+  completions: 2
+  parallelism: 2
   template:
     metadata:
       labels: {paddle-job: fluid-ctr}
@@ -32,11 +32,10 @@ spec:
             fieldRef: {fieldPath: status.podIP}
         - {name: PADDLE_JOB_NAME, value: fluid-ctr}
         - {name: PADDLE_IS_LOCAL, value: '0'}
-        - {name: PADDLE_TRAINERS, value: '1'}
         - {name: FLAGS_rpc_deadline, value: '36000000'}
         - {name: PADDLE_PORT, value: '30236'}
         - {name: PADDLE_PSERVERS_NUM, value: '1'}
-        - {name: PADDLE_TRAINERS_NUM, value: '1'}
+        - {name: PADDLE_TRAINERS_NUM, value: '2'}
         - {name: PADDLE_TRAINING_ROLE, value: TRAINER}
         - {name: TRAINING_ROLE, value: TRAINER}
         - {name: LD_LIBRARY_PATH, value: '/usr/local/lib:/usr/local/nvidia/lib64:/usr/local/rdma/lib64:/usr/lib64/mlnx_ofed/valgrind'}
@@ -44,8 +43,8 @@ spec:
         image: wopeizl/paddle_ctr_distribute
         imagePullPolicy: Always
         name: trainer
-        ports:
-        - {containerPort: 41092, name: trainer-41092}
+#        ports:
+#        - {containerPort: 41092, name: trainer-41092}
         volumeMounts:
         - {mountPath: /mnt/seqdata, name: seqdata}
         resources:
