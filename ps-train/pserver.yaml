@@ -30,6 +30,7 @@ spec:
         - {name: PADDLE_IS_LOCAL, value: '0'}
         - {name: PADDLE_TRAINERS, value: '1'}
         - {name: PADDLE_TRAINERS_NUM, value: '1'}
+        - {name: PADDLE_PSERVERS_NUM, value: '1'}
         - {name: FLAGS_rpc_deadline, value: '36000000'}
         - {name: ENTRY, value: cd /workspace/ctr && python train.py --is_local 0 --cloud_train 1}
         - {name: PADDLE_PORT, value: '30236'}
