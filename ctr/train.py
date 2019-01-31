@@ -101,7 +101,12 @@ def parse_args():
         '--trainer_id',
         type=int,
         default=0,
-        help='The path for model to store (default: models)')
+        help='The trainer id (default: models)')
+    parser.add_argument(
+        '--pserver_id',
+        type=int,
+        default=0,
+        help='The pserver id (default: models)')
     parser.add_argument(
         '--trainers',
         type=int,
@@ -185,15 +190,17 @@ def train():
     optimizer.minimize(loss)
     if args.cloud_train:
         # the port of all pservers, needed by both trainer and pserver
-        port = os.getenv("PADDLE_PORT", "6174")
+        port = int(os.getenv("PADDLE_PORT", "6174"))
         # comma separated ips of all pservers, needed by trainer and
-        pserver_ips = os.getenv("PADDLE_PSERVERS", "")
-        eplist = []
-        for ip in pserver_ips.split(","):
-            eplist.append(':'.join([ip, port]))
-        args.endpoints = ",".join(eplist)
+        # pserver_ips = os.getenv("PADDLE_PSERVERS", "")
+        # eplist = []
+        # for ip in pserver_ips.split(","):
+        #     eplist.append(':'.join([ip, port]))
+        # args.endpoints = ",".join(eplist)
+        args.endpoints = os.getenv("PADDLE_PSERVERS", "")
         args.trainers = int(os.getenv("PADDLE_TRAINERS_NUM", "1"))
-        args.current_endpoint = os.getenv("POD_IP", "localhost") + ":" + port
+        args.pserver_id = int(os.getenv("PADDLE_PSERVER_ID", "0"))
+        args.current_endpoint = os.getenv("POD_IP", "localhost") + ":" + str(port + args.pserver_id)
         args.role = os.getenv("TRAINING_ROLE", "TRAINER")
         args.trainer_id = int(os.getenv("PADDLE_TRAINER_ID", "0"))
         args.is_local = bool(int(os.getenv("PADDLE_IS_LOCAL", 0)))

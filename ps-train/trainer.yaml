@@ -27,6 +27,9 @@ spec:
         - name: POD_IP
           valueFrom:
             fieldRef: {fieldPath: status.podIP}
+        - name: POD_NAME
+          valueFrom:
+            fieldRef: {fieldPath: metadata.name}
         - name: PADDLE_CURRENT_IP
           valueFrom:
             fieldRef: {fieldPath: status.podIP}
@@ -34,7 +37,7 @@ spec:
         - {name: PADDLE_IS_LOCAL, value: '0'}
         - {name: FLAGS_rpc_deadline, value: '36000000'}
         - {name: PADDLE_PORT, value: '30236'}
-        - {name: PADDLE_PSERVERS_NUM, value: '1'}
+        - {name: PADDLE_PSERVERS_NUM, value: '2'}
         - {name: PADDLE_TRAINERS_NUM, value: '2'}
         - {name: PADDLE_TRAINING_ROLE, value: TRAINER}
         - {name: TRAINING_ROLE, value: TRAINER}

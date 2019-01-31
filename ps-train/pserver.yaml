@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata: {name: fluid-ctr-pserver}
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels: {paddle-job-pserver: fluid-ctr}
@@ -23,13 +23,16 @@ spec:
         - name: POD_IP
           valueFrom:
             fieldRef: {fieldPath: status.podIP}
+        - name: POD_NAME
+          valueFrom:
+            fieldRef: {fieldPath: metadata.name}
         - name: PADDLE_CURRENT_IP
           valueFrom:
             fieldRef: {fieldPath: status.podIP}
         - {name: PADDLE_JOB_NAME, value: fluid-ctr}
         - {name: PADDLE_IS_LOCAL, value: '0'}
         - {name: PADDLE_TRAINERS_NUM, value: '2'}
-        - {name: PADDLE_PSERVERS_NUM, value: '1'}
+        - {name: PADDLE_PSERVERS_NUM, value: '2'}
         - {name: FLAGS_rpc_deadline, value: '36000000'}
         - {name: ENTRY, value: cd /workspace/ctr && python train.py --is_local 0 --cloud_train 1}
         - {name: PADDLE_PORT, value: '30236'}
@@ -39,8 +42,8 @@ spec:
         image: wopeizl/paddle_ctr_distribute
         imagePullPolicy: Always
         name: pserver
-        ports:
-        - {containerPort: 30236, name: pserver-30236}
+#        ports:
+#        - {containerPort: 30236, name: pserver-30236}
         volumeMounts:
         - {mountPath: /mnt/seqdata, name: seqdata}
         resources:
