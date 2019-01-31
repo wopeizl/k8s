@@ -5,7 +5,7 @@ MAINTAINER peizhilin@baidu.com
 # ARG UBUNTU_MIRROR
 # RUN /bin/bash -c 'if [[ -n ${UBUNTU_MIRROR} ]]; then sed -i 's#http://archive.ubuntu.com/ubuntu#${UBUNTU_MIRROR}#g' /etc/apt/sources.list; fi'
 
-RUN apt-get update && apt-get install -y python python-pip iputils-ping libgtk2.0-dev wget vim net-tools iftop python-opencv git
+RUN apt-get update && apt-get install -y python python-pip iputils-ping libgtk2.0-dev wget vim net-tools iftop python-opencv git curl
 
 # IMPORTANT:
 # Add "ENV http_proxy=http://ip:port" if your download is slow, and don't forget to unset it at runtime.
