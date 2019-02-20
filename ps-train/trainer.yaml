@@ -8,8 +8,6 @@ spec:
     metadata:
       labels: {paddle-job: fluid-ctr}
     spec:
- #     nodeSelector:
- #      minikube: "1"
       restartPolicy: "OnFailure"
       containers:
       - command: [paddle_k8s, start_fluid]
@@ -46,8 +44,6 @@ spec:
         image: wopeizl/paddle_ctr_distribute
         imagePullPolicy: Always
         name: trainer
-#        ports:
-#        - {containerPort: 41092, name: trainer-41092}
         volumeMounts:
         - {mountPath: /mnt/seqdata, name: seqdata}
         resources:

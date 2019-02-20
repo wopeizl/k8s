@@ -7,8 +7,6 @@ spec:
     metadata:
       labels: {paddle-job-pserver: fluid-ctr}
     spec:
- #     nodeSelector:
- #      minikube: "1"
       containers:
       - command: [paddle_k8s, start_fluid]
         env:
@@ -42,8 +40,6 @@ spec:
         image: wopeizl/paddle_ctr_distribute
         imagePullPolicy: Always
         name: pserver
-#        ports:
-#        - {containerPort: 30236, name: pserver-30236}
         volumeMounts:
         - {mountPath: /mnt/seqdata, name: seqdata}
         resources:
