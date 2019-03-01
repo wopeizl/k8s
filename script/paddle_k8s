@@ -51,7 +51,8 @@ start_fluid_process() {
     task_index=$(python /root/k8s_tools.py fetch_id ${trainer_label})
 
     # download training materials for trainer task_index=0-9
-    address="https://paddle-ctr-data.bj.bcebos.com/dac${task_index}.tar.gz"
+    file_index=$(( 10$task_index%10 ))
+    address="https://paddle-ctr-data.bj.bcebos.com/dac${file_index}.tar.gz"
     cd /workspace/ctr/data/raw && curl -o dac.tar.gz ${address} && tar zxf dac.tar.gz && rm dac.tar.gz
   else
     task_index=$(python /root/k8s_tools.py fetch_id ${pserver_label})
